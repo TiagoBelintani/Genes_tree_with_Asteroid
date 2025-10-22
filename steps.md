@@ -44,11 +44,42 @@ module load miniconda/3-2023-09
 source activate /home/tiagobelintani/miniconda3/envs/phyluce-1.7.3
 
 
-mpiexec -np 4 /home/tiagobelintani/programas/Asteroid/build/bin/asteroid \
+/home/tiagobelintani/programas/Asteroid/build/bin/asteroid \
   -i genes.tree \
   -r 10 \
   -p barychelidae \
   --seed 1986
+```
+
+Paralelização
+
+```bash
+#!/bin/bash
+#SBATCH --nodes=2                # número de nós (servidores)
+#SBATCH --ntasks-per-node=8      # número de processos MPI por nó
+#SBATCH --time=04:00:00
+#SBATCH --mem=16G
+
+# === Carregar ambiente ===
+module load intel/compilers
+module load intel/mpi
+module load miniconda/3-2023-09
+source activate /home/tiagobelintani/miniconda3/envs/phyluce-1.7.3
+
+# === Caminho para o executável ===
+ASTEROID_BIN=/home/tiagobelintani/programas/Asteroid/build/bin/asteroid
+
+# === Arquivos de entrada ===
+GENE_TREES=/home/tiagobelintani/dados/genes.tree
+PREFIX=barychelidae_2
+SEED=1986
+
+# === Execução ===
+srun -n $SLURM_NTASKS $ASTEROID_BIN \
+  -i $GENE_TREES \
+  -r 10 \
+  -p $PREFIX \
+  --seed $SEED
 ```
 
 
