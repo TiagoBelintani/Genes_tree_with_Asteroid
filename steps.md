@@ -1,7 +1,8 @@
 # Asteroid
 * executar
 
-
+* Instalação
+  
 ```bash
 gitclone git clone --recursive https://github.com/BenoitMorel/Asteroid
 mkdir build && cd build
@@ -14,8 +15,9 @@ make -j4
  ```
 
 * Argumentos
+
   
-  ```bash
+```bash
 -i | --input-gene-trees <STRING>         Path to file containing one gene tree per line, in newick format
 -r | --random-starting-trees <INTEGER>   Number of starting random trees. 0 to start from an ASTRID tree. Default value is 1.
 -b | --bs-replicates <INTEGER>                   Number of bootstrap trees to compute. Default is 0.
